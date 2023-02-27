@@ -1,4 +1,11 @@
 const database = await buildSchema();
+const order = {
+  id: 1,
+  created_at: new Date("2020-09-01"),
+  client_name: "Grigory Petrov"
+};
+await saveOrder(order;)
+
 function buildSchema () {
 
   const schemaBuilder = lf.schema.create("pizzeria_db", 1);
