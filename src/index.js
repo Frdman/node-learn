@@ -1,13 +1,4 @@
-const database = await buildSchema();
-const order = {
-  id: 1,
-  created_at: new Date("2020-09-01"),
-  client_name: "Grigory Petrov"
-};
-await saveOrder(order);
-
 function buildSchema() {
-
   const schemaBuilder = lf.schema.create("pizzeria_db",4);
 
   schemaBuilder
@@ -35,9 +26,9 @@ function buildSchema() {
   .addColumn("quantity", lf.Type.NUMBER)
   .addColumn("client_name", lf.Type.STRING)
   .addColumn("client_phone", lf.Type.NUMBER)
-  .addColumn("addresss", lf.Type.STRING)
+  .addColumn("address", lf.Type.STRING)
   .addPrimaryKey(["id"])
-  .addUnique("uq_name", ["client_name"])
+  // .addUnique("uq_id", ["id"])
   .addNullable(["client_phone"]);
 
 
@@ -85,12 +76,52 @@ function buildSchema() {
     local: "order_id",
     ref: "order.id",
   });
+  return schemaBuilder
 }
 
-function saveOrder(order) {
-   const orderTable = database.getSchema().table('order');
-   const row = orderTable.createRow();
-   return database.insertOrReplace().into(orderTable).values([row]).exec();
+const order = {
+  id: 1,
+  quantity: 2,
+  address: "Улица Пушкина, дом колотушкина", 
+  created_at: new Date("2020-09-01"),
+  client_name: "Grigory Petrov"
+};
+
+// Инициализируем и коннектимся к базе данных
+const db_builder = buildSchema()
+const database = await db_builder.connect()
+
+function createNewOrder(order){
+  const orderTable = database.getSchema().table('order');
+  const row = orderTable.createRow(order);
+  return database.insertOrReplace().into(orderTable).values([row]).exec();
 }
 
-buildSchema()
+function updatePhoneByOrderId(order_id, new_phone){
+  const orderTable = database.getSchema().table('order');
+  return database.update(orderTable)
+    .set(orderTable.client_phone, new_phone)
+    .where(orderTable.id.eq(order_id)).exec()
+}
+
+function getOrderById(order_id){
+  const orderTable = database.getSchema().table('order');
+  return database.select(orderTable.client_phone)
+    .from(orderTable)
+    .where(orderTable.id.eq(orderTable)).exec();
+}
+
+function deleteOrderById(order_id){
+  const orderTable = database.getSchema().table('order');
+  return database.delete()
+    .from(orderTable)
+    .where(orderTable.id.eq(order_id)).exec();
+}
+
+console.log(createNewOrder(order))
+// console.log(updatePhoneByOrderId(1, '88005553535'))
+console.log(getOrderById(1))
+console.log(updatePhoneByOrderId(1, '77777777777'))
+console.log(getOrderById(1))
+// console.log(deleteOrderById(10))
+console.log(getOrderById(1))
