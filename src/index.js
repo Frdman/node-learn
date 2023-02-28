@@ -84,6 +84,7 @@ function buildSchema() {
 const db_builder = buildSchema()
 const database = await db_builder.connect()
 
+
 function createNewProduct(product){
   const productTable = database.getSchema().table('product');
   const row = productTable.createRow(product);
@@ -112,14 +113,12 @@ function deleteProductById(product_id) {
 
 function printAllProducts() {
   const productTable = database.getSchema().table("product");
-
   return database.select().from(productTable).exec();
 }
 
 function getNameOfPizza() {
   const productTable = database.getSchema().table("product");
   const orderTable = database.getSchema().table("order");
-
   return 
 }
 
@@ -138,3 +137,13 @@ const product_lsit = [
   { id: 4, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price : 320,},
   { id: 5, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price : 320,}
 ]
+
+for (let index = 0; index < order_list.length; index++) {
+  const element = order_list[index];
+  createNewOrder(element)
+}
+
+for (let index = 0; index < order_list.length; index++) {
+  const element = order_list[index];
+  createNewProduct(element)
+}
