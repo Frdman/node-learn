@@ -121,13 +121,17 @@ function getNameOfPizza() {
   const orderTable = database.getSchema().table("order");
   return 
 }
-
+function createNewOrder(order){
+  const orderTable = database.getSchema().table('order');
+  const row = orderTable.createRow(order);
+  return database.insertOrReplace().into(orderTable).values([row]).exec();
+}
 
 const order_list = [
-  {id: 1, quantity: 3, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
-  {id: 2, quantity: 3, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
-  {id: 3, quantity: 1, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
-  {id: 4, quantity: 2, address: "aboba", client_phone: "88005553535"},
+  {id: 1, quantity: 1, address: "Улица Пушкина, дом колотушкина", client_phone: "8800555"},
+  {id: 2, quantity: 2, address: "Osipenko 1", client_phone: "3535"},
+  {id: 3, quantity: 3, address: "Lenina 5", client_phone: "0555"},
+  {id: 4, quantity: 4, address: "Revolucii 7", client_phone: "8800"},
 ]
 
 const product_lsit = [
