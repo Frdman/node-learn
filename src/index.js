@@ -106,14 +106,14 @@ function createNewOrder(order){
   const row = orderTable.createRow(order);
   return database.insertOrReplace().into(orderTable).values([row]).exec();
 }
+
 //обновляет номер телефона заказчика с заданным id
 function updatePhoneByOrderId(order_id, new_phone){
   const orderTable = database.getSchema().table('order');
-
-  const query = database
+  return database
     .update(orderTable)
-    .set(orderTable.client_phone, lf.bind(10))
-    .where(orderTable.id.eq(lf.bind(10)))
+    .set(orderTable.client_phone, new_phone)
+    .where(orderTable.id.eq(order_id))
     .exec()
 }
 
@@ -126,7 +126,6 @@ function getOrderById(order_id){
 
 function deleteOrderById(order_id) {
   const orderTable = database.getSchema().table('order');
-
   return database
     .delete()
     .from(orderTable)
