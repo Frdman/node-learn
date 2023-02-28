@@ -1,5 +1,5 @@
 function buildSchema() {
-  const schemaBuilder = lf.schema.create("pizzeria_db",4);
+  const schemaBuilder = lf.schema.create("pizzeria_db",6);
 
   schemaBuilder
   .createTable("restaurant")
@@ -79,12 +79,22 @@ function buildSchema() {
   return schemaBuilder
 }
 
-const order = {
+let order = {
   id: 1,
   quantity: 2,
   address: "Улица Пушкина, дом колотушкина", 
   created_at: new Date("2020-09-01"),
-  client_name: "Grigory Petrov"
+  client_name: "Grigory Petrov",
+  client_phone: "88005553535",
+};
+
+let order1 = {
+  id: 2,
+  quantity: 4,
+  address: "samara", 
+  created_at: new Date("2020-04-07"),
+  client_name: "Petr Grigorenko",
+  client_phone: "888888",
 };
 
 // Инициализируем и коннектимся к базе данных
@@ -96,12 +106,14 @@ function createNewOrder(order){
   const row = orderTable.createRow(order);
   return database.insertOrReplace().into(orderTable).values([row]).exec();
 }
-
+//обновляет номер телефона заказчика с заданным id
 function updatePhoneByOrderId(order_id, new_phone){
   const orderTable = database.getSchema().table('order');
+
   return database.update(orderTable)
     .set(orderTable.client_phone, new_phone)
-    .where(orderTable.id.eq(order_id)).exec()
+    .where(orderTable.id.eq(order_id))
+    .exec()
 }
 
 function getOrderById(order_id){
@@ -120,8 +132,7 @@ function deleteOrderById(order_id){
 
 console.log(createNewOrder(order))
 // console.log(updatePhoneByOrderId(1, '88005553535'))
-console.log(getOrderById(1))
-console.log(updatePhoneByOrderId(1, '77777777777'))
-console.log(getOrderById(1))
-// console.log(deleteOrderById(10))
-console.log(getOrderById(1))
+//console.log(getOrderById(1))
+console.log(updatePhoneByOrderId(1, "77777777777"))
+//console.log(getOrderById(1))
+console.log(deleteOrderById(10))
