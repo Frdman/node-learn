@@ -119,14 +119,8 @@ function printAllProducts() {
 function getNameOfPizza() {
   const productTable = database.getSchema().table("product");
   const orderTable = database.getSchema().table("order");
-
-  return database
-  .select()
-  .from(productTable)
-  .innerJoin(productTable,orderTable.id.eq(productTable.name_of_pizza))
-  .exec();
+  return 
 }
-
 function createNewOrder(order){
   const orderTable = database.getSchema().table('order');
   const row = orderTable.createRow(order);
@@ -148,4 +142,12 @@ const product_lsit = [
   { id: 5, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price : 320,}
 ]
 
-console.log(getNameOfPizza)
+for (let index = 0; index < order_list.length; index++) {
+  const element = order_list[index];
+  createNewOrder(element)
+}
+
+for (let index = 0; index < order_list.length; index++) {
+  const element = order_list[index];
+  createNewProduct(element)
+}
