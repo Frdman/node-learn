@@ -84,6 +84,7 @@ function buildSchema() {
 const db_builder = buildSchema()
 const database = await db_builder.connect()
 
+
 function createNewProduct(product){
   const productTable = database.getSchema().table('product');
   const row = productTable.createRow(product);
@@ -112,7 +113,6 @@ function deleteProductById(product_id) {
 
 function printAllProducts() {
   const productTable = database.getSchema().table("product");
-
   return database.select().from(productTable).exec();
 }
 
