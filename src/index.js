@@ -78,64 +78,8 @@ function buildSchema() {
   });
   return schemaBuilder
 }
-const order = {
-  id: 1,
-  quantity: 3,
-  address: "Улица Пушкина, дом колотушкина",
-  client_phone: "88005553535",
-};
-const order = {
-  id: 4,
-  quantity: 2,
-  address: "aboba",
-  client_phone: "88005553535",
-};
-const order = {
-  id: 3,
-  quantity: 1,
-  address: "Улица Пушкина, дом колотушкина",
-  client_phone: "88005553535",
-};
 
-const product = {
-  id: 1,
-  name_of_pizza: "pepperoni fresh",
-  ingredients: "pepperoni", 
-  description: "tasty",
-  price : 280,
-};
 
-const product1 = {
-  id: 2,
-  name_of_pizza: "cheese chicken",
-  ingredients: "chicken", 
-  description: "very tasty",
-  price : 400,
-};
-
-const product2 = {
-  id: 3,
-  name_of_pizza: "ranch chicken",
-  ingredients: "chicken", 
-  description: "super tasty",
-  price : 430,
-};
-
-const product3 = {
-  id: 4,
-  name_of_pizza: "Margarita",
-  ingredients: "tomatoes",
-  description: "super duper tasty",
-  price : 320,
-};
-
-const product3 = {
-  id: 5,
-  name_of_pizza: "Margarita",
-  ingredients: "tomatoes",
-  description: "super duper tasty",
-  price : 320,
-}
 // Инициализируем и коннектимся к базе данных
 const db_builder = buildSchema()
 const database = await db_builder.connect()
@@ -179,8 +123,18 @@ function getNameOfPizza() {
   return 
 }
 
-//console.log(updateNameOfPizza(product3.id, '4 cheeses'))
-//console.log(createNewProduct(product));
-console.log(printAllProducts());
-//console.log(deleteProductById(product1))
 
+const order_list = [
+  {id: 1, quantity: 3, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
+  {id: 2, quantity: 3, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
+  {id: 3, quantity: 1, address: "Улица Пушкина, дом колотушкина", client_phone: "88005553535"},
+  {id: 4, quantity: 2, address: "aboba", client_phone: "88005553535"},
+]
+
+const product_lsit = [
+  { id: 1, name_of_pizza: "pepperoni fresh", ingredients: "pepperoni",  description: "tasty", price : 280,},
+  { id: 2, name_of_pizza: "cheese chicken", ingredients: "chicken",  description: "very tasty", price : 400,},
+  { id: 3, name_of_pizza: "ranch chicken", ingredients: "chicken",  description: "super tasty", price : 430,},
+  { id: 4, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price : 320,},
+  { id: 5, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price : 320,}
+]
