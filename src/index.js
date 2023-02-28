@@ -79,7 +79,7 @@ function buildSchema() {
   return schemaBuilder
 }
 
-let order = {
+const order = {
   id: 1,
   quantity: 2,
   address: "Улица Пушкина, дом колотушкина", 
@@ -88,7 +88,7 @@ let order = {
   client_phone: "88005553535",
 };
 
-let order1 = {
+const order1 = {
   id: 2,
   quantity: 4,
   address: "samara", 
@@ -110,9 +110,10 @@ function createNewOrder(order){
 function updatePhoneByOrderId(order_id, new_phone){
   const orderTable = database.getSchema().table('order');
 
-  return database.update(orderTable)
-    .set(orderTable.client_phone, new_phone)
-    .where(orderTable.id.eq(order_id))
+  const query = database
+    .update(orderTable)
+    .set(orderTable.client_phone, lf.bind(10))
+    .where(orderTable.id.eq(lf.bind(10)))
     .exec()
 }
 
@@ -123,16 +124,24 @@ function getOrderById(order_id){
     .where(orderTable.id.eq(orderTable)).exec();
 }
 
-function deleteOrderById(order_id){
+function deleteOrderById(order_id) {
   const orderTable = database.getSchema().table('order');
-  return database.delete()
+
+  return database
+    .delete()
     .from(orderTable)
-    .where(orderTable.id.eq(order_id)).exec();
+    .where(orderTable.id.eq(order_id))
+    .exec();
 }
 
-console.log(createNewOrder(order))
-// console.log(updatePhoneByOrderId(1, '88005553535'))
+function printAllOrders() {
+  const orderTable = database.getSchema().table("order");
+
+  return database.select().from(orderTable).exec().then(console.table);
+}
+
+console.log(updatePhoneByOrderId(10, '88005'))
+console.log(getOrderById(10));
+console.log(deleteOrderById);
+console.log(printAllOrders(order));
 //console.log(getOrderById(1))
-console.log(updatePhoneByOrderId(1, "77777777777"))
-//console.log(getOrderById(1))
-console.log(deleteOrderById(10))
