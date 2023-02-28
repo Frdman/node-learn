@@ -78,70 +78,109 @@ function buildSchema() {
   });
   return schemaBuilder
 }
-
 const order = {
   id: 1,
+  quantity: 3,
+  address: "Улица Пушкина, дом колотушкина",
+  client_phone: "88005553535",
+};
+const order = {
+  id: 4,
   quantity: 2,
-  address: "Улица Пушкина, дом колотушкина", 
-  created_at: new Date("2020-09-01"),
-  client_name: "Grigory Petrov",
+  address: "aboba",
+  client_phone: "88005553535",
+};
+const order = {
+  id: 3,
+  quantity: 1,
+  address: "Улица Пушкина, дом колотушкина",
   client_phone: "88005553535",
 };
 
-const order1 = {
-  id: 2,
-  quantity: 4,
-  address: "samara", 
-  created_at: new Date("2020-04-07"),
-  client_name: "Petr Grigorenko",
-  client_phone: "888888",
+const product = {
+  id: 1,
+  name_of_pizza: "pepperoni fresh",
+  ingredients: "pepperoni", 
+  description: "tasty",
+  price : 280,
 };
 
+const product1 = {
+  id: 2,
+  name_of_pizza: "cheese chicken",
+  ingredients: "chicken", 
+  description: "very tasty",
+  price : 400,
+};
+
+const product2 = {
+  id: 3,
+  name_of_pizza: "ranch chicken",
+  ingredients: "chicken", 
+  description: "super tasty",
+  price : 430,
+};
+
+const product3 = {
+  id: 4,
+  name_of_pizza: "Margarita",
+  ingredients: "tomatoes",
+  description: "super duper tasty",
+  price : 320,
+};
+
+const product3 = {
+  id: 5,
+  name_of_pizza: "Margarita",
+  ingredients: "tomatoes",
+  description: "super duper tasty",
+  price : 320,
+}
 // Инициализируем и коннектимся к базе данных
 const db_builder = buildSchema()
 const database = await db_builder.connect()
 
-function createNewOrder(order){
-  const orderTable = database.getSchema().table('order');
-  const row = orderTable.createRow(order);
-  return database.insertOrReplace().into(orderTable).values([row]).exec();
+function createNewProduct(product){
+  const productTable = database.getSchema().table('product');
+  const row = productTable.createRow(product);
+  return database.insertOrReplace().into(productTable).values([row]).exec();
 }
-//обновляет номер телефона заказчика с заданным id
-function updatePhoneByOrderId(order_id, new_phone){
-  const orderTable = database.getSchema().table('order');
+//обновляет название пиццы в продукте с заданным id
+function updateNameOfPizza(product_id, new_name){
+  const productTable = database.getSchema().table('product');
 
   const query = database
-    .update(orderTable)
-    .set(orderTable.client_phone, lf.bind(10))
-    .where(orderTable.id.eq(lf.bind(10)))
+    .update(productTable)
+    .set(productTable.name_of_pizza, new_name)
+    .where(productTable.id.eq(product_id))
     .exec()
 }
 
-function getOrderById(order_id){
-  const orderTable = database.getSchema().table('order');
-  return database.select(orderTable.client_phone)
-    .from(orderTable)
-    .where(orderTable.id.eq(orderTable)).exec();
-}
-
-function deleteOrderById(order_id) {
-  const orderTable = database.getSchema().table('order');
+function deleteProductById(product_id) {
+  const productTable = database.getSchema().table('product');
 
   return database
     .delete()
-    .from(orderTable)
-    .where(orderTable.id.eq(order_id))
+    .from(productTable)
+    .where(productTable.id.eq(product_id))
     .exec();
 }
 
-function printAllOrders() {
-  const orderTable = database.getSchema().table("order");
+function printAllProducts() {
+  const productTable = database.getSchema().table("product");
 
-  return database.select().from(orderTable).exec().then(console.table);
+  return database.select().from(productTable).exec();
 }
 
-console.log(updatePhoneByOrderId(10, '88005'))
-console.log(getOrderById(10));
-console.log(deleteOrderById);
-console.log(printAllOrders(order));
-//console.log(getOrderById(1))
+function getNameOfPizza() {
+  const productTable = database.getSchema().table("product");
+  const orderTable = database.getSchema().table("order");
+
+  return 
+}
+
+//console.log(updateNameOfPizza(product3.id, '4 cheeses'))
+//console.log(createNewProduct(product));
+console.log(printAllProducts());
+//console.log(deleteProductById(product1))
+
