@@ -17,13 +17,17 @@ function buildSchema() {
     .addColumn("ingredients", lf.Type.STRING)
     .addColumn("description", lf.Type.STRING)
     .addColumn("price", lf.Type.NUMBER)
+    .addColumn("order_id", lf.Type.INTEGER)
+    .addForeignKey("fk_or", {
+      local: "order_id",
+      ref: "order.id",
+    })
     .addPrimaryKey(["id"]);
 
   schemaBuilder
     .createTable("order")
     .addColumn("id", lf.Type.INTEGER)
     .addColumn("created_at", lf.Type.DATA_TIME)
-    .addColumn("name_of_product", lf.Type.STRING)
     .addColumn("quantity", lf.Type.NUMBER)
     .addColumn("client_name", lf.Type.STRING)
     .addColumn("client_phone", lf.Type.NUMBER)
@@ -129,29 +133,61 @@ function createNewOrder(order) {
   return database.insertOrReplace().into(orderTable).values([row]).exec();
 }
 
-function getProductsWithName() {
+
+// TASK 1
+function getPizzaByName(name){
+  const productTable = database.getSchema().table("product");
+  return database
+    .select()
+    .from(productTable)
+    .where(productTable.name_of_pizza.eq(name))
+    .exec()
+    .then(console.table);
+}
+
+
+// TASK 2
+function getIngredientWithName(name) {
   const productTable = database.getSchema().table("product");
   const orderTable = database.getSchema().table("order");
 
   return database
     .select()
     .from(orderTable)
-    .innerJoin(productTable, orderTable.id.eq(productTable.id))
-    .exec();
-}
+    .innerJoin(productTable, productTable.order_id.eq(orderTable.id))
+    .where(productTable.ingredients.eq(name))
+    .exec()
+    .then(console.table);
+  }
+
+  // TASK 3
+  function getPizzaByPriceRange(price_from, price_to){
+    const productTable = database.getSchema().table("product");
+    return database
+      .select()
+      .from(productTable)
+      .where(productTable.price.between(price_from, price_to))
+      .exec()
+      .then(console.table);
+  }
+
+
+
 
 const order_list = [
-  { id: 1, quantity: 1, created_at: new Date("2020-03-04"),name_of_product:"Margarita", address: "Улица Пушкина, дом колотушкина", client_phone: "8800555", client_name: "Ivan" },
-  { id: 2, quantity: 2, created_at: new Date("2020-05-14"),name_of_product:"pepperoni fresh", address: "Osipenko 1", client_phone: "3535", client_name: "Ilya" },
-  { id: 3, quantity: 3, created_at: new Date("2020-01-03"),name_of_product:"cheese chicken", address: "Lenina 5", client_phone: "0555", client_name: "Nastya" },
-  { id: 4, quantity: 4, created_at: new Date("2021-09-01"),name_of_product:"pepperoni fresh", address: "Revolucii 7", client_phone: "8800", client_name: "Maria" },
+  { id: 1, quantity: 1, created_at: new Date("2020-03-04"), address: "Улица Пушкина, дом колотушкина", client_phone: "8800555", client_name: "Ivan" },
+  { id: 2, quantity: 2, created_at: new Date("2020-05-14"), address: "Osipenko 1", client_phone: "3535", client_name: "Ilya" },
+  { id: 3, quantity: 3, created_at: new Date("2020-01-03"), address: "Lenina 5", client_phone: "0555", client_name: "Nastya" },
+  { id: 4, quantity: 4, created_at: new Date("2021-09-01"), address: "Revolucii 7", client_phone: "8800", client_name: "Maria" },
 ]
 
 const product_list = [
-  { id: 1, name_of_pizza: "pepperoni fresh", ingredients: "pepperoni", description: "tasty", price: 280, order_id:1},
-  { id: 2, name_of_pizza: "cheese chicken", ingredients: "chicken", description: "very tasty", price: 400,order_id:1},
-  { id: 3, name_of_pizza: "ranch chicken", ingredients: "chicken", description: "super tasty", price: 430,order_id:2 },
-  { id: 4, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price: 320,order_id:3 },
+  { id: 1, name_of_pizza: "pepperoni fresh", ingredients: "pepperoni", description: "tasty", price: 100, order_id:1},
+  { id: 2, name_of_pizza: "cheese chicken", ingredients: "chicken", description: "very tasty", price: 200, order_id:2},
+  { id: 3, name_of_pizza: "ranch chicken", ingredients: "chicken", description: "super tasty", price: 300, order_id:1 },
+  { id: 4, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price: 400, order_id:2 },
+  { id: 5, name_of_pizza: "ranch chicken", ingredients: "chicken", description: "super tasty", price: 500, order_id:3 },
+  { id: 6, name_of_pizza: "Margarita", ingredients: "tomatoes", description: "super duper tasty", price: 600, order_id:3 },
 ]
 
 
@@ -165,5 +201,6 @@ for (let index = 0; index < product_list.length; index++) {
   createNewProduct(element)
 }
 
-console.log(printAllProducts(product_list));
-console.log(getProductsWithName());
+// console.log(getIngredientWithName('chicken'));
+// console.log(getPizzaByName('ranch chicken'));
+console.log(getPizzaByPriceRange(200, 500));
