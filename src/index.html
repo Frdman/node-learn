@@ -1,162 +1,155 @@
 <!doctype html>
-<html lang="ru" >
-  <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Пример на bootstrap 5: Форма входа - макет и дизайн формы · Версия v5.3.0-alpha1">
-    <link rel="stylesheet" href="/src/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Пример на bootstrap 5: Форма входа - макет и дизайн формы · Версия v5.3.0-alpha1">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head> 
+
+<body>
+  <title>Форма входа</title>
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .b-example-divider {
+      height: 3rem;
+      background-color: rgba(0, 0, 0, .1);
+      border: solid rgba(0, 0, 0, .15);
+      border-width: 1px 0;
+      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+    }
+
+    .b-example-vr {
+      flex-shrink: 0;
+      width: 1.5rem;
+      height: 100vh;
+    }
+
+    .bi {
+      vertical-align: -.125em;
+      fill: currentColor;
+    }
+
+    .nav-scroller {
+      position: relative;
+      z-index: 2;
+      height: 2.75rem;
+      overflow-y: hidden;
+    }
+
+    .nav-scroller .nav {
+      display: flex;
+      flex-wrap: nowrap;
+      padding-bottom: 1rem;
+      margin-top: -1px;
+      overflow-x: auto;
+      text-align: center;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .form {
+      background: #ccc;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  </style>
   </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-	<title>Форма входа</title>
 
-	<!-- Bootstrap core CSS -->
-<link href="/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-
-	<!-- Favicons -->
-	<link rel="apple-touch-icon" href="/docs/5.3/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-	<link rel="manifest" href="/docs/5.3/assets/img/favicons/manifest.json">
-	<link rel="mask-icon" href="/docs/5.3/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-	<link rel="icon" href="/docs/5.3/assets/img/favicons/favicon.ico">
-	<meta name="theme-color" content="#7952b3">
-
-
-<style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-
-      .b-example-divider {
-        height: 3rem;
-        background-color: rgba(0, 0, 0, .1);
-        border: solid rgba(0, 0, 0, .15);
-        border-width: 1px 0;
-        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-      }
-
-      .b-example-vr {
-        flex-shrink: 0;
-        width: 1.5rem;
-        height: 100vh;
-      }
-
-      .bi {
-        vertical-align: -.125em;
-        fill: currentColor;
-      }
-
-      .nav-scroller {
-        position: relative;
-        z-index: 2;
-        height: 2.75rem;
-        overflow-y: hidden;
-      }
-
-      .nav-scroller .nav {
-        display: flex;
-        flex-wrap: nowrap;
-        padding-bottom: 1rem;
-        margin-top: -1px;
-        overflow-x: auto;
-        text-align: center;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-      }
-    .form{
-        background: #ccc;
-        position: fixed; top: 50%; left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-      }
-    </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-  </head>
   <body class="text-center">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Пиццерия</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Главная</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Прайс</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Промокоды</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Поддержка</a>
-              </li>
-            </ul>
-          </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Пиццерия</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Переключатель навигации">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Прайс</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Промокоды</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Поддержка</a>
+            </li>
+          </ul>
         </div>
-      </nav>
-<main class="form-signin d-flex flex-column align-items-center justify-content-center ">
-  <form>
-    <img class="mb-4" src="pizza.png" width="70" height="70" style= "margin-top: 2%">
-    <h1 class="h3 mb-3 fw-normal">Заполните форму для заказа</h1>
-
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">E-mail</label>
-    </div>
-    <div class="form-floating">
-      <input type="name" class="form-control" id="floatingInput" placeholder="Иван">
-      <label for="floatingInput">Имя</label>
-    </div>
-    <div class="form-floating">
-      <input type="address" class="form-control" id="floatingPassword" placeholder="Улица Пушкина, дом Колотушкина">
-      <label for="floatingPassword">Адрес</label>
-    </div>
-    <div class="form-floating">
-      <input type="phone_number" class="form-control" id="floatingPassword" placeholder="88008008000">
-      <label for="floatingPassword">Номер телефона</label>
-    </div>
-    <div class="form-floating">
-        <label for="exampleDataList" class="form-label">Выберите пиццу</label>
-        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Введите для поиска...">
-        <select id="datalistOptions">
+      </div>
+    </nav>
+    <main class="form-signin d-flex flex-column align-items-center justify-content-center ">
+      <form>
+        <img class="mb-4" src="pizza.png" width="70" height="70" style="margin-top: 2%">
+        <h1 class="h3 mb-3 fw-normal">Заполните форму для заказа</h1>
+ 
+        <div class="form-floating mt-3">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">E-mail</label>
+        </div>
+        <div class="form-floating mt-3">
+          <input type="name" class="form-control" id="floatingInput" placeholder="Иван">
+          <label for="floatingInput">Имя</label>
+        </div>
+        <div class="form-floating mt-3">
+          <input type="address" class="form-control" id="floatingPassword" placeholder="Улица Пушкина, дом Колотушкина">
+          <label for="floatingPassword">Адрес</label>
+        </div>
+        <div class="form-floating mt-3">
+          <input type="phone_number" class="form-control" id="floatingPassword" placeholder="88008008000">
+          <label for="floatingPassword">Номер телефона</label>
+        </div>
+        <div class="form-floating mt-3">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Выберите пиццу</option>
+            <option value="1">Пепперони Фреш</option>
+            <option value="2">Маргарита</option>
+            <option value="3">Сырный цыпленок</option>
+            <option value="4">Цыпленок ранч</option>
+          </select>
+          <!-- <label for="exampleDataList" class="form-label">Выберите пиццу</label>
+          <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Введите для поиска...">
+          <datalist id="datalistOptions">
             <option value="Пепперони Фреш">
             <option value="Маргарита">
             <option value="Сырный цыпленок">
-            <option value="Цыпленок ранч"> 
-            </select>
-    </div>
-</form>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Запомнить меня
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Оформить заказ</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
-  </form>
-</main>
-
-<script src="/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
-
+            <option value="Цыпленок ранч">
+          </datalist> -->
+        </div>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Запомнить меня
+        </label>
+      </div>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Оформить заказ</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2023</p>
+      </form>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
   </body>
+
 </html>
