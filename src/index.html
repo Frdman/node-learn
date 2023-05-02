@@ -225,14 +225,47 @@
         const editButton = document.createElement("button");
         editButton.innerText = "Изменить";
 
+
+        function startEditingRow(editButton){
+          editButton.innerText = "Сохранить"
+          const tr = document.getElementById("table-id-" + idCounterConst);
+          tr.children.item(1).innerHTML = `<input value=${tr.children.item(1).innerText}>` 
+          tr.children.item(2).innerHTML = `<input value=${tr.children.item(2).innerText}>` 
+          tr.children.item(3).innerHTML = `<input value=${tr.children.item(3).innerText}>` 
+          tr.children.item(4).innerHTML = `
+          <select class="form-select" id="pizza" aria-label="Default select example">
+            <option selected>${tr.children.item(4).innerText}</option>
+            <option value="Пепперони Фреш">Пепперони Фреш</option>
+            <option value="Маргарита">Маргарита</option>
+            <option value="Сырный цыпленок">Сырный цыпленок</option>
+            <option value="Цыпленок ранч">Цыпленок ранч</option>
+          </select>
+          ` 
+
+          console.log(tr.children.item(1).children.item(0).value)
+          editButton.onclick = () => {
+            editButton.innerText = "Изменить"
+            console.log(tr.children)
+            tr.children.item(1).innerHTML = tr.children.item(1).children.item(0).value
+            tr.children.item(2).innerHTML = tr.children.item(2).children.item(0).value
+            tr.children.item(3).innerHTML = tr.children.item(3).children.item(0).value
+            tr.children.item(4).innerHTML = tr.children.item(4).children.item(0).value
+            editButton.onclick = () => {
+              startEditingRow(editButton)
+            }
+          }
+        }
+
         editButton.onclick = () => {
-         const tr = document.getElementById("table-id-" + idCounterConst);
-         currentEditId = "table-id-" + idCounterConst;
-         formEmail.value = tr.children.item(1).innerText;
-         formName.value = tr.children.item(2).innerText;
-         formPhone_number.value = tr.children.item(4).innerText;
-         formPizza.value = tr.children.item(5).innerText;
-         remoteButton.innerText = "Изменить";
+          startEditingRow(editButton)
+
+         // const tr = document.getElementById("table-id-" + idCounterConst);
+         // currentEditId = "table-id-" + idCounterConst;
+         // formEmail.value = tr.children.item(1).innerText;
+         // formName.value = tr.children.item(2).innerText;
+         // formPhone_number.value = tr.children.item(4).innerText;
+         // formPizza.value = tr.children.item(5).innerText;
+         // remoteButton.innerText = "Изменить";
        }
 
       const removeButton = document.createElement("button");
